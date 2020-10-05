@@ -36,12 +36,6 @@ class AuctionAPIController extends Controller
     {
         $response = $this->apiService->getAuction($auction);
 
-//        $this->response->headers->set('Content-Type', 'application/json');
-//        $this->response->setContent($response);
-//        $this->response->setStatusCode(Response::HTTP_OK);
-//
-//        return $this->response;
-
         return new JsonResponse($response);
     }
 

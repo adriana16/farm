@@ -117,11 +117,13 @@ class AuctionController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if ($auction->getStatus() !== Auction::STATUS_OPEN) {
-            $auction->setStatus(Auction::STATUS_OPEN);
-            $auction->setStartDate(new \DateTime('now'));
+            $auction
+                ->setStatus(Auction::STATUS_OPEN)
+                ->setStartDate(new \DateTime('now'));
         } else {
-            $auction->setStatus(Auction::STATUS_DONE);
-            $auction->setEndDate(new \DateTime('now'));
+            $auction
+                ->setStatus(Auction::STATUS_DONE)
+                ->setEndDate(new \DateTime('now'));
         }
 
         $em->persist($auction);
