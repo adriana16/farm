@@ -1,0 +1,7 @@
+<h3 class="card-title pricing-card-title"><small class="text-muted">Bidders</small></h3>
+
+<ul>
+    {% for bidder in bidders %}
+    <li>{{ bidder.name }} paid: {{ bidder.amount }}</li>
+    {% endfor %}
+</ul>

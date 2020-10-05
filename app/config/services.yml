@@ -1,0 +1,25 @@
+# Learn more about services, parameters and containers at
+# https://symfony.com/doc/current/service_container.html
+parameters:
+    #parameter_name: value
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $fromEmailAddress: '%from_email_address%'
+
+    FarmBundle\:
+        resource: '../../src/FarmBundle/*'
+        exclude: '../../src/FarmBundle/{Entity,Repository,Tests}'
+
+    FarmBundle\Controller\:
+        resource: '../../src/FarmBundle/Controller'
+        public: true
+        tags: [controller.service_arguments]
+
+    FarmBundle\EventListener\EmailConfirmationListener:
+        tags:
+            - { name: kernel.event_listener, event: user_registered, method: onUserRegister }

@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6"><h3>Create new Box</h3></div>
+            <div class="col-md-3">
+                <a href="{{ path('box_index') }}" class="btn btn-primary float-left">
+                    <i class="fas fa-arrow-circle-left"></i>
+                    Back to list
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card-deck mb-3 text-center">
+            <div class="card mb-6 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Box Details</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    <div class="form-group text-left">
+                        {{ form_label(form.type) }}
+                        {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.type) }}
+                    </div>
+
+
+                    {{ form_errors(form) }}
+
+                    <div class="box-product" data-index="" data-prototype="
+                        {% filter escape %}
+                            {% include 'box/box_details_prototype.html.twig' with { 'boxProduct': form.boxProducts.vars.prototype } %}
+                        {% endfilter %}">
+
+                        <a href="#" class="add-product float-right pr-3">
+                            <sup><i class="fas fa-plus-circle"></i>Add Product</sup>
+                        </a>
+                        {% for boxProduct in form.boxProducts %}
+                            <div class="box-products">
+                                <div class="form-group text-left">
+                                    {{ form_label(boxProduct.name) }}
+                                    {{ form_widget(boxProduct.name, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(boxProduct.name) }}
+                                </div>
+
+                                <div class="form-group text-left">
+                                    {{ form_label(boxProduct.quantity) }}
+                                    {{ form_widget(boxProduct.quantity, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(boxProduct.quantity) }}
+                                </div>
+
+                                <a href="#" class="delete-product float-right"><sup>Delete Product</sup></a>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Create</button>
+                    {% do form.boxProducts.setRendered %}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {{ encore_entry_script_tags('box') }}
+{% endblock %}

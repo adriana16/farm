@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h3>DON'T HAVE AN ACCOUNT YET?</h3>
+    </div>
+
+    <div class="container">
+        <div class="card-deck mb-3 text-center">
+            <div class="card mb-6 shadow-sm">
+                <div class="card-body">
+                    {{ form_start(form) }}
+                        <div class="form-group text-left">
+                            {{ form_label(form.username) }}
+                            {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.username) }}
+                        </div>
+                        <div class="form-group text-left">
+                            {{ form_label(form.email) }}
+                            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+                        <div class="form-group text-left">
+                            {{ form_label(form.plainPassword.first) }}
+                            {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.plainPassword.first) }}
+                        </div>
+                        <div class="form-group text-left">
+                            {{ form_label(form.plainPassword.second) }}
+                            {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.plainPassword.second) }}
+                        </div>
+
+                        <div class="form-group text-left">
+                            {% for child in form.roles %}
+                                <div class="form-check form-check-inline">
+                                    {{ form_widget(child, {'attr': { 'value': child.vars.value  } }) }}
+                                    <label class="form-check-label">{{ child.vars.label }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Sign up</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

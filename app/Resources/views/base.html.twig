@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Farm{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+
+            <!-- jsRouter js -->
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+    </head>
+
+    <body>
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+            <h5 class="my-0 mr-md-auto font-weight-normal">Farm</h5>
+
+            {% if is_granted('ROLE_USER') %}
+                <nav class="my-2 my-md-0 mr-md-3">
+                    <a class="p-2 text-dark" href="{{ path('auction_index') }}">Auctions</a>
+
+                    {% if is_granted("ROLE_FARMER") %}
+                        <a class="p-2 text-dark" href="{{ path('box_index') }}">Box List</a>
+                    {% endif %}
+                </nav>
+
+                <a class="btn btn-outline-primary" href="{{ path('logout') }}">Log out</a>
+            {% else %}
+                <a class="btn btn-outline-primary" href="{{ path('user_login') }}">Log in</a>
+            {% endif %}
+
+        </div>
+
+        <div id="app">
+            {% block body %}{% endblock %}
+        </div>
+
+        <div class="container">
+            <footer class="pt-4 border-top">
+                <div class="row">
+                    <div class="col-12 col-md">
+                        <small class="d-block mb-3 text-center">{{ "now"|date("Y") }}</small>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </body>
+</html>

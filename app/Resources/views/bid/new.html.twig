@@ -1,0 +1,25 @@
+<div class="col-md-8" id="bid-action">
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+            <h4 class="my-0 font-weight-normal">
+                <span class="float-left">Bid</span>
+                <span class="float-right">
+                    <button class="btn btn-success">Buy</button>
+                </span>
+            </h4>
+
+        </div>
+        <div class="card-body">
+            {{ form_start(bidForm, {'attr': {'id': 'new_bid_form'}}) }}
+
+                <div class="form-group text-left">
+                    {{ form_widget(bidForm.amount, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(bidForm.amount) }}
+                </div>
+
+            {{ form_end(bidForm) }}
+
+            <button class="btn btn-primary float-right" onclick="saveBid(this);" data-user="{{ user.id }}" data-auction="{{ auction.id }}">Bid</button>
+        </div>
+    </div>
+</div>

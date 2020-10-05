@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6"><h3>Auction</h3></div>
+            <div class="col-md-3">
+                <a href="{{ path('auction_index') }}" class="btn btn-primary float-left">
+                    <i class="fas fa-arrow-circle-left"></i>
+                    Back to auction list
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 order-md-1">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">
+                            <span class="float-left">Bidders details</span>
+                        </h4>
+                    </div>
+                    <div class="card-body" id="bidders-list"></div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">
+                            <span class="float-left">Auction {{ auction.id }}</span>
+                            {% if is_granted("ROLE_FARMER") %}
+                                {% if auction.status == 'open' %}
+                                    <span class="float-right">
+                                        <a class="btn btn-danger" href="{{ path('auction_toggle', {'id': auction.id }) }}"><i class="fas fa-stop" style="font-size: 18px;"></i>Stop auction</a>
+                                    </span>
+                                {% else %}
+                                    <span class="float-right">
+                                        <a class="btn btn-success" href="{{ path('auction_toggle', {'id': auction.id }) }}"><i class="fas fa-play" style="font-size: 18px;"></i>Start auction</a>
+                                    </span>
+                                {% endif %}
+                            {% endif %}
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title pricing-card-title"><small class="text-muted">Auction Details</small></h3>
+                        <ul>
+                            <li>Start Date: {{ auction.startDate|date('Y-m-d') }}</li>
+                            <li>End Date: {{ auction.endDate|date('Y-m-d') }}</li>
+                            <li>
+                                Start Price: {{auction.price }}
+                                <i class="fas fa-euro-sign"></i>
+                            </li>
+                            <li>
+                                Buy Out Price: {{ auction.buyOutPrice }}
+                                <i class="fas fa-euro-sign"></i>
+                            </li>
+                            <li>
+                                Step: {{ auction.step }}
+                            </li>
+                        </ul>
+
+                        {% if auction.box %}
+                            <h3 class="card-title pricing-card-title"><small class="text-muted">{{ auction.box.type }}</small></h3>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Product Name</th>
+                                    <th scope="col">Quantity</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for product in auction.box.boxProducts %}
+                                    <tr>
+                                        <th scope="row">{{ product.name }}</th>
+                                        <td>{{ product.quantity }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if is_granted("ROLE_BUYER") %}
+            <div class="row">
+                {% include 'bid/new.html.twig' %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('auction') }}
+
+    <script type="text/javascript">
+        var bidderList = setInterval(getBiddersList, 2000, "{{ auction.id }}");
+    </script>
+{% endblock %}

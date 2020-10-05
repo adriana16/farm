@@ -1,0 +1,44 @@
+security:
+
+    encoders:
+        FarmBundle\Entity\User: bcrypt
+
+    role_hierarchy:
+        ROLE_ADMIN:  ROLE_ADMIN
+        ROLE_FARMER: ROLE_FARMER
+        ROLE_BUYER:  ROLE_BUYER
+        ROLE_USER:   ROLE_USER
+
+    providers:
+        in_memory:
+            memory: ~
+        our_user_provider:
+            entity:
+                class: FarmBundle:User
+                property: username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            anonymous: ~
+            logout_on_user_change: true
+            form_login:
+                provider: our_user_provider
+                login_path: '/login'
+                check_path: '/login'
+                default_target_path: homepage
+                success_handler: FarmBundle\Security\Authentication\Handler\LoginSuccessHandler
+            logout:
+                path: '/logout'
+                target: homepage
+
+    access_control:
+        - { path: '^/$', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^/login', roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^/box/(.)*/view', roles: ROLE_USER }
+        - { path: '^/box', roles: ROLE_FARMER }
+#        - { path: '^/auction', roles: ROLE_USER }

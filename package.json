@@ -1,0 +1,38 @@
+{
+  "name": "farm",
+  "version": "1.0.0",
+  "description": "Symfony Standard Edition ========================",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev-server": "./node_modules/.bin/encore dev-server",
+    "encore-build": "./node_modules/.bin/encore dev",
+    "encore-watch": "./node_modules/.bin/encore dev --watch",
+    "encore-prod": "./node_modules/.bin/encore production"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.31.0",
+    "vue": "^2.6.12",
+    "vue-loader": "^15.9.3",
+    "vue-template-compiler": "^2.6.12"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0",
+    "axios": "^0.20.0",
+    "bootstrap": "^4.5.2",
+    "bootstrap-datepicker": "^1.9.0",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
+    "jquery": "^3.5.1",
+    "moment": "^2.29.0",
+    "node-sass": "^4.14.1",
+    "popper.js": "^1.16.1",
+    "sass-loader": "^8.0.2",
+    "vue-axios": "^2.1.5",
+    "webpack-notifier": "^1.8.0"
+  }
+}

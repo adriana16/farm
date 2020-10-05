@@ -1,0 +1,15 @@
+<div class="box-products">
+    <div class="form-group text-left">
+        {{ form_label(boxProduct.name) }}
+        {{ form_widget(boxProduct.name, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(boxProduct.name) }}
+    </div>
+
+    <div class="form-group text-left">
+        {{ form_label(boxProduct.quantity) }}
+        {{ form_widget(boxProduct.quantity, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(boxProduct.quantity) }}
+    </div>
+
+    <a href="#" class="delete-product float-right"><sup><i class="fas fa-trash"></i>Delete Product</sup></a>
+</div>

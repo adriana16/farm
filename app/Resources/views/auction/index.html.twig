@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6"><h3>Auction List</h3></div>
+            <div class="col-md-3">
+                {% if is_granted('ROLE_FARMER') %}
+                    <a href="{{ path('box_index') }}" class="btn btn-primary float-left">
+                        <i class="fas fa-arrow-circle-left"></i>
+                        Back to box list
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="mb-3 col-md-12 text-center">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Box details</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Buy out Price</th>
+                        <th scope="col">Step</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for auction in auctions %}
+                        <tr>
+                            <th scope="row">{{ auction.id }}</th>
+                            <td><a href="{{ path('box_view', {'id': auction.box.id}) }}" target="_blank">View Box Details</a></td>
+                            <td>{{ auction.price }}</td>
+                            <td>{{ auction.buyOutPrice }}</td>
+                            <td>{{ auction.step }}</td>
+                            <td>{{ auction.status }}</td>
+                            <td>
+                                <a href="{{ path('auction_view', {'id': auction.id}) }}"><i class="fas fa-eye" style="font-size: 18px; color: blue;"></i></a>
+
+                                {% if is_granted('ROLE_FARMER') and not auction.startDate %}
+                                    <a href="#"><i class="fas fa-play" style="font-size: 18px; color: green;"></i></a>
+                                {% elseif is_granted('ROLE_BUYER') %}
+                                    Enter auction
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {{ encore_entry_script_tags('auction') }}
+{% endblock %}

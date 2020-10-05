@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6"><h3>Create new Auction</h3></div>
+            <div class="col-md-3">
+                <a href="{{ path('box_index') }}" class="btn btn-primary float-left">
+                    <i class="fas fa-arrow-circle-left"></i>
+                    Back to list
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card-deck mb-3 text-center">
+            <div class="card mb-6 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Auction Details</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    <div class="form-group text-left">
+                        {{ form_label(form.price) }}
+                        {{ form_widget(form.price, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.price) }}
+                    </div>
+
+                    <div class="form-group text-left">
+                        {{ form_label(form.buyOutPrice) }}
+                        {{ form_widget(form.buyOutPrice, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.buyOutPrice) }}
+                    </div>
+
+
+                    <div class="form-group text-left">
+                        {{ form_label(form.step) }}
+                        {{ form_widget(form.step, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.step) }}
+                    </div>
+
+                    <div class="form-group text-left">
+                        {{ form_label(form.startDate) }}
+                        {{ form_widget(form.startDate) }}
+                        {{ form_errors(form.startDate) }}
+                    </div>
+
+                    <div class="form-group text-left">
+                        {{ form_label(form.endDate) }}
+                        {{ form_widget(form.endDate) }}
+                        {{ form_errors(form.endDate) }}
+                    </div>
+
+                    <button type="submit" class="btn btn-lg btn-block btn-outline-primary">Create</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {{ encore_entry_script_tags('box') }}
+{% endblock %}

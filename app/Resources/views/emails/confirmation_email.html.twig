@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        <div>
+            <h3>Welcome, {{ user.username }}!</h3>
+
+            <div>
+                Your Account is ready, you can log in
+                <a href="{{ confirmationUrl }}">here</a>
+                using your email address.
+            </div>
+
+            <a href="{{ confirmationUrl }}">Log in link</a>
+
+            Best Regards,
+            Farm Team.
+        </div>
+    </body>
+</html>
